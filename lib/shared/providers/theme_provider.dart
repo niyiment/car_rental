@@ -1,16 +1,15 @@
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final themeProvider = NotifierProvider<ThemeNotifier, bool>(ThemeNotifier.new);
 
-class ThemeNotifier extends Notifier<bool>{
+class ThemeNotifier extends Notifier<bool> {
   static const _themeKey = 'isDarkMode';
 
   @override
   bool build() {
     _loadTheme();
-    return false;
+    return true;
   }
 
   Future<void> _loadTheme() async {
@@ -23,6 +22,4 @@ class ThemeNotifier extends Notifier<bool>{
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_themeKey, state);
   }
-
 }
-

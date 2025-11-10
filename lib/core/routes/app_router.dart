@@ -4,20 +4,45 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/welcome/presentation/welcome_screen.dart';
 
+class AppRouter {
+  static const String welcome = '/welcome';
+  static const String home = '/home';
+
+}
+
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: '/welcome',
+    initialLocation: AppRouter.welcome,
     routes: [
       GoRoute(
-        path: '/welcome',
+        path: AppRouter.welcome,
         name: 'welcome',
-        builder: (context, state) => const WelcomeScreen(),
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const WelcomeScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+            opacity: animation,
+            child: child,
+          )
+        ),
       ),
       GoRoute(
-        path: '/home',
+        path: AppRouter.home,
         name: 'home',
-        builder: (context, state) => const Placeholder(),
+        pageBuilder: (context, state) => CustomTransitionPage(
+            key: state.pageKey,
+            child: const Placeholder(),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+              opacity: animation,
+              child: child,
+            )
+        ),
       ),
     ],
+    errorBuilder: (context, state) => const Scaffold(
+      body: Center(
+        child: Text('Something went wrong!'),
+      ),
+    ),
   );
 });

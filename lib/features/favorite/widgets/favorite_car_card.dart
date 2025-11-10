@@ -36,7 +36,10 @@ class FavoriteCarCard extends ConsumerWidget {
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.directions_car_rounded, size: 40),
+              child: Image.asset(
+                car.imageUrl,
+                fit: BoxFit.contain,
+              ),
             ),
             const SizedBox(width: 16),
             Expanded(

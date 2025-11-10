@@ -4,6 +4,6 @@
 ## Screenshots
 
 ![Welcome screen](assets/screenshots/welcome.png)  
-![Home Screen](assets/screenshots/home.png)
+![Home Screen](assets/screenshots/home_light.png)
 
 

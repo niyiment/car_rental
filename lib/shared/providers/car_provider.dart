@@ -132,3 +132,4 @@ final favoritesCarsProvider = Provider<List<Car>>((ref) {
   return cars.where((car) => favorites.contains(car.id)).toList();
 });
 
+

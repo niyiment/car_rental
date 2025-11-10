@@ -1,10 +1,13 @@
 
-import 'package:car_rental/features/rent/presentation/screen/favorite_screen.dart';
+import 'package:car_rental/features/booking/screen/booking_screen.dart';
+import 'package:car_rental/features/favorite/screen/favorite_screen.dart';
+import 'package:car_rental/features/profile/screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../home/screen/home_screen.dart';
 import '../provider/navigation_provider.dart';
-import 'home_screen.dart';
+
 
 class MainLayoutScreen extends ConsumerWidget {
   const MainLayoutScreen({super.key});
@@ -17,11 +20,11 @@ class MainLayoutScreen extends ConsumerWidget {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: [
-          const HomeScreen(),
+        children: const [
+          HomeScreen(),
           FavoritesScreen(),
-          Center(child: Icon(Icons.receipt_rounded)),
-          Center(child: Icon(Icons.person_rounded)),
+          BookingScreen(),
+          ProfileScreen()
         ],
       ),
       bottomNavigationBar: Container(

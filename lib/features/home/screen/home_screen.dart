@@ -4,7 +4,7 @@ import 'package:car_rental/shared/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../widgets/car_card.dart';
+import '../widgets/car_card.dart';
 
 
 class HomeScreen extends ConsumerWidget {
@@ -99,6 +99,7 @@ class HomeScreen extends ConsumerWidget {
                         onSelected: (value) {
                           ref.read(selectedCategoryProvider.notifier).state = category;
                         },
+                        checkmarkColor: isDarkMode ? Colors.black : Colors.white,
                         backgroundColor: theme.cardColor,
                         selectedColor: theme.primaryColor,
                         labelStyle: theme.textTheme.bodyMedium?.copyWith(

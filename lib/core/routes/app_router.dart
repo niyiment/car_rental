@@ -1,11 +1,13 @@
 
-import 'package:car_rental/features/rent/presentation/screen/main_layout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/rent/presentation/screen/car_detail_screen.dart';
-import '../../features/welcome/presentation/welcome_screen.dart';
+
+import '../../features/layout/screen/main_layout_screen.dart';
+import '../../features/home/screen/car_detail_screen.dart';
+import '../../features/welcome/screen/welcome_screen.dart';
+
 
 class AppRouter {
   static const String welcome = '/welcome';
@@ -42,10 +44,10 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
       ),
       GoRoute(
-        path: '${AppRouter.mainLayout}/:id',
+        path: '${AppRouter.detail}/:carId',
         name: 'detail',
         pageBuilder: (context, state) {
-          final carId = state.pathParameters['id']!;
+          final carId = state.pathParameters['carId']!;
 
           return CustomTransitionPage(
             key: state.pageKey,
@@ -65,9 +67,9 @@ final routerProvider = Provider<GoRouter>((ref) {
         }
       ),
     ],
-    errorBuilder: (context, state) => const Scaffold(
+    errorBuilder: (context, state) => Scaffold(
       body: Center(
-        child: Text('Something went wrong!'),
+        child: Text('Something went wrong! ${state.error}'),
       ),
     ),
   );

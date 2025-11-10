@@ -1,4 +1,5 @@
 import 'package:car_rental/core/constants/app_string.dart';
+import 'package:car_rental/core/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -72,7 +73,7 @@ class WelcomeScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                         height: 1.3,
-                        letterSpacing: -0.5,
+                        letterSpacing: 0.5,
                       ),
                     ),
 
@@ -102,7 +103,7 @@ class WelcomeScreen extends StatelessWidget {
       fontSize: 13,
       color: Colors.white.withValues(alpha: 0.7),
       height: 1.5,
-      letterSpacing: 2,
+      letterSpacing: 0.5,
     ),
   );
 
@@ -110,7 +111,7 @@ class WelcomeScreen extends StatelessWidget {
     width: double.infinity,
     child: ElevatedButton(
       onPressed: () {
-        context.go('/home');
+        context.go(AppRouter.mainLayout);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,

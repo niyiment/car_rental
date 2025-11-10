@@ -72,3 +72,63 @@ final searchedCarsProvider = Provider<List<Car>>((ref) {
   }).toList();
 });
 
+final favoriteCarIdsProvider = NotifierProvider<FavoriteCarIdsNotifier, Set<String>>(
+  FavoriteCarIdsNotifier.new,
+);
+
+class FavoriteCarIdsNotifier extends Notifier<Set<String>> {
+  @override
+  Set<String> build() {
+    return {};
+  }
+
+  void toggleFavorite(String carId) {
+    final newFavorites = {...state};
+    if (newFavorites.contains(carId)) {
+      newFavorites.remove(carId);
+    } else {
+      newFavorites.add(carId);
+    }
+    state = newFavorites;
+  }
+
+  void addFavorite(String carId) {
+    state = {...state, carId};
+  }
+
+  void removeFavorite(String carId) {
+    state = {...state}..remove(carId);
+  }
+
+  void clearFavorites() {
+    state = {};
+  }
+}
+
+final toggleFavoriteProvider = Provider((ref) {
+  return (String carId) {
+    final favorites = ref.read(favoriteCarIdsProvider.notifier);
+    final currentFavorites = ref.read(favoriteCarIdsProvider);
+
+    if (currentFavorites.contains(carId)) {
+      favorites.state = {...currentFavorites}..remove(carId);
+    } else {
+      favorites.state = {...currentFavorites, carId};
+    }
+  };
+});
+
+// Is Favorite Provider
+final isFavoriteProvider = Provider.family<bool, String>((ref, carId) {
+  final favorites = ref.watch(favoriteCarIdsProvider);
+  return favorites.contains(carId);
+});
+
+// Favorite Cars List Provider
+final favoritesCarsProvider = Provider<List<Car>>((ref) {
+  final favorites = ref.watch(favoriteCarIdsProvider);
+  final cars = ref.watch(carListProvider);
+
+  return cars.where((car) => favorites.contains(car.id)).toList();
+});
+

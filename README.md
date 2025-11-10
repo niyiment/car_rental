@@ -1,4 +1,9 @@
-# car_rental
+# Car Rental
 
-A new Flutter project.
+
+## Screenshots
+
+![Welcome screen](assets/screenshots/welcome.png)  
+![Home Screen](assets/screenshots/home.png)
+
 

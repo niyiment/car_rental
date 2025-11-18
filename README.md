@@ -5,22 +5,18 @@ A modern, feature-rich Flutter mobile application for premium car rentals with *
 ## Features
 
 * Modern UI - Clean, elegant design with dark/light themes
-<<<<<<< HEAD
 * FREE Maps - OpenStreetMap integration showing Abuja, Nigeria (zero setup!)
-=======
 * Location Map - OpenStreetMap integration showing Abuja, Nigeria (zero setup!)
->>>>>>> 8f159bf (Refactor project structure, add .env file for payment keys, integrate stripe payment, update booking entity, and add payment entity and provider)
 * Smart Search - Real-time search and category filtering
 * Favorites - Save and manage favorite vehicles
 * Booking System - Complete booking flow with date selection
 * Booking Management - Track active, completed, and cancelled bookings
-<<<<<<< HEAD
+
 * Theme Toggle - Switch between dark and light modes
-=======
+
 * Payment - Stripe payment integration
 * Dark/Light Mode - Switch between dark and light modes
 * Bottom Navigation - Quickly navigate between screens
->>>>>>> 8f159bf (Refactor project structure, add .env file for payment keys, integrate stripe payment, update booking entity, and add payment entity and provider)
 
 ## Tech Stack
 
@@ -38,6 +34,29 @@ A modern, feature-rich Flutter mobile application for premium car rentals with *
 4. Favorites - Saved cars
 5. Booking - Complete booking history with stats
 6. Profile - Settings and theme toggle
+
+
+## Stripe payment integration
+1. Create a Stripe account [here](https://dashboard.stripe.com/register)
+2. Create a Stripe API key [here](https://dashboard.stripe.com/apikeys)
+3. Add the API keys (publishable key and secret key) to the `.env`. 
+    ```
+   STRIPE_SECRET_KEY=sk_test_YOUR_SECRET_KEY
+   STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_PUBLISHABLE_KEY
+   ```
+4. Configure your flutter app by following the instructions for flutter_stripe package [here](https://github.com/flutter-stripe/flutter_stripe)
+5. Check stripe site for test cards [here](https://stripe.com/docs/testing)
+
+## Payment flow
+1. User books a car
+2. Fills in details (dates, info)
+3. Taps "Confirm Booking"
+4. Choose payment method:
+    - Pay with Card → Opens Stripe payment sheet
+    - Pay Later → Creates pending booking
+5. Enter card details (if paying now)
+6. Payment processes
+7. Success! Booking confirmed
 
 ## Screenshots
 

@@ -1,7 +1,8 @@
 
-import 'package:car_rental/domain/data/dummy_data.dart';
-import 'package:car_rental/domain/entities/car.dart';
+import 'package:car_rental/models/data/dummy_data.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../models/car.dart';
 
 final carListProvider = Provider<List<Car>>((ref) {
   return DummyData.cars;

@@ -1,7 +1,7 @@
 
 import 'package:car_rental/core/constants/app_string.dart';
 
-import '../entities/car.dart';
+import '../car.dart';
 
 class DummyData {
   static final List<Car> cars = [

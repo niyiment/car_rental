@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/routes/app_router.dart';
-import '../../../domain/entities/car.dart';
-import '../../../shared/providers/car_provider.dart';
+import '../../../models/car.dart';
+import '../../../providers/car_provider.dart';
 
 
 class FavoriteCarCard extends ConsumerWidget {

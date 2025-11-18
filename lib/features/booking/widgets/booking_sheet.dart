@@ -1,10 +1,12 @@
 
-import 'package:car_rental/shared/providers/booking_provider.dart';
+import 'package:car_rental/providers/payment_provider.dart';
+import 'package:car_rental/providers/booking_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/entities/booking.dart';
-import '../../../domain/entities/car.dart';
+import '../../../models/booking.dart';
+import '../../../models/car.dart';
+import '../../../models/payment.dart';
 
 class BookingBottomSheet extends ConsumerStatefulWidget {
 
@@ -23,6 +25,7 @@ class _BookingBottomSheetState extends ConsumerState<BookingBottomSheet> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _notesController = TextEditingController();
+  bool _isProcessing = false;
 
   @override
   void dispose() {
@@ -76,7 +79,7 @@ class _BookingBottomSheetState extends ConsumerState<BookingBottomSheet> {
     }
   }
 
-  void _confirmBooking() {
+  Future<void> _confirmBooking() async {
     if (_startDate == null || _endDate == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -99,34 +102,117 @@ class _BookingBottomSheetState extends ConsumerState<BookingBottomSheet> {
       return;
     }
 
+    final payWithCard = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: const Text('Payment Method'),
+        content: const Text('how would you like to pay for this booking?'),
+        actions: [
+          TextButton.icon(
+            onPressed: () => Navigator.pop(context, false),
+            icon: const Icon(Icons.money_rounded),
+            label: const Text('Pay Later'),
+          ),
+          TextButton.icon(
+            onPressed: () => Navigator.pop(context, true),
+            icon: const Icon(Icons.credit_card_rounded),
+            label: const Text('Pay Now'),
+          ),
+        ],
+      ),
+    );
+
+    if (payWithCard == null) return;
+
+    final bookingId = DateTime.now().millisecondsSinceEpoch.toString();
+    Payment? payment;
+
+    if (payWithCard) {
+      // process stripe payment
+      setState(() => _isProcessing = true);
+
+      try {
+        payment = await ref.read(processPaymentProvider)(
+          bookingId: bookingId,
+          amount: _totalPrice,
+          currency: 'usd',
+          customerEmail: _emailController.text.trim().toLowerCase()
+        );
+        if (!payment.isPaid) {
+          if (mounted) {
+            setState(() => _isProcessing = false);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(payment?.errorMessage ?? 'Payment failed'),
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.red,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            );
+          }
+          return;
+        }
+      } catch (e) {
+        if (mounted) {
+          setState(() => _isProcessing = false);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content:  Text('Payment error: $e'),
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          );
+        }
+        return;
+      }
+
+      setState(() => _isProcessing = false);
+    }
+
+    // create booking with payment info
     final booking = Booking(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      id: bookingId,
       car: widget.car,
       startDate: _startDate!,
       endDate: _endDate!,
       numberOfDays: _numberOfDays,
       totalPrice: _totalPrice,
-      status: BookingStatus.confirmed,
+      status: payWithCard ? BookingStatus.confirmed : BookingStatus.pending,
       bookingDate: DateTime.now(),
       customerName: _nameController.text,
       customerEmail: _emailController.text,
       customerPhone: _phoneController.text,
       notes: _notesController.text.isEmpty ? null : _notesController.text,
+      payment: payment,
+      isPaid: payment?.isPaid ?? false,
     );
 
     ref.read(bookingsProvider.notifier).addBooking(booking);
 
-    Navigator.pop(context);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Booking confirmed for ${widget.car.name}!'),
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.green,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+    if (mounted) {
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text( payWithCard ?
+              'Booking confirmed and paid for ${widget.car.name}!'
+              : 'Booking confirmed for ${widget.car.name}!'
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.green,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   @override

@@ -1,6 +1,6 @@
 
 import 'package:car_rental/features/home/widgets/spec_card.dart';
-import 'package:car_rental/shared/providers/theme_provider.dart';
+import 'package:car_rental/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../core/constants/app_string.dart';
-import '../../../domain/entities/car.dart';
-import '../../../shared/providers/car_provider.dart';
+import '../../../models/car.dart';
+import '../../../providers/car_provider.dart';
 import '../../booking/widgets/booking_sheet.dart';
 
 class DetailContentWidget extends ConsumerWidget {

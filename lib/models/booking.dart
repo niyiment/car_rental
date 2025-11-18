@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
+
 import 'car.dart';
+import 'payment.dart';
 
 enum BookingStatus {
   pending,
@@ -8,6 +10,7 @@ enum BookingStatus {
   completed,
   cancelled,
 }
+
 
 class Booking extends Equatable {
   final String id;
@@ -22,6 +25,8 @@ class Booking extends Equatable {
   final String customerEmail;
   final String customerPhone;
   final String? notes;
+  final Payment? payment;
+  final bool isPaid;
 
   const Booking({
     required this.id,
@@ -36,23 +41,28 @@ class Booking extends Equatable {
     required this.customerEmail,
     required this.customerPhone,
     this.notes,
+    this.payment,
+    this.isPaid = false,
   });
 
   @override
-  List<Object?> get props => [
-    id,
-    car,
-    startDate,
-    endDate,
-    numberOfDays,
-    totalPrice,
-    status,
-    bookingDate,
-    customerName,
-    customerEmail,
-    customerPhone,
-    notes,
-  ];
+  List<Object?> get props =>
+      [
+        id,
+        car,
+        startDate,
+        endDate,
+        numberOfDays,
+        totalPrice,
+        status,
+        bookingDate,
+        customerName,
+        customerEmail,
+        customerPhone,
+        notes,
+        payment,
+        isPaid,
+      ];
 
   Booking copyWith({
     String? id,
@@ -67,6 +77,8 @@ class Booking extends Equatable {
     String? customerEmail,
     String? customerPhone,
     String? notes,
+    Payment? payment,
+    bool? isPaid,
   }) {
     return Booking(
       id: id ?? this.id,
@@ -81,6 +93,8 @@ class Booking extends Equatable {
       customerEmail: customerEmail ?? this.customerEmail,
       customerPhone: customerPhone ?? this.customerPhone,
       notes: notes ?? this.notes,
+      payment: payment ?? this.payment,
+      isPaid: isPaid ?? this.isPaid,
     );
   }
 
@@ -99,8 +113,18 @@ class Booking extends Equatable {
     }
   }
 
+  String get paymentStatustext {
+    if (payment == null) {
+      return 'Unpaid';
+    }
+
+    return payment!.statusText;
+  }
+
   bool get isActive => status == BookingStatus.active || status == BookingStatus.confirmed;
   bool get isPending => status == BookingStatus.pending;
   bool get isCompleted => status == BookingStatus.completed;
   bool get isCancelled => status == BookingStatus.cancelled;
+
+
 }

@@ -5,12 +5,22 @@ A modern, feature-rich Flutter mobile application for premium car rentals with *
 ## Features
 
 * Modern UI - Clean, elegant design with dark/light themes
+<<<<<<< HEAD
 * FREE Maps - OpenStreetMap integration showing Abuja, Nigeria (zero setup!)
+=======
+* Location Map - OpenStreetMap integration showing Abuja, Nigeria (zero setup!)
+>>>>>>> 8f159bf (Refactor project structure, add .env file for payment keys, integrate stripe payment, update booking entity, and add payment entity and provider)
 * Smart Search - Real-time search and category filtering
 * Favorites - Save and manage favorite vehicles
 * Booking System - Complete booking flow with date selection
 * Booking Management - Track active, completed, and cancelled bookings
+<<<<<<< HEAD
 * Theme Toggle - Switch between dark and light modes
+=======
+* Payment - Stripe payment integration
+* Dark/Light Mode - Switch between dark and light modes
+* Bottom Navigation - Quickly navigate between screens
+>>>>>>> 8f159bf (Refactor project structure, add .env file for payment keys, integrate stripe payment, update booking entity, and add payment entity and provider)
 
 ## Tech Stack
 
@@ -36,6 +46,8 @@ A modern, feature-rich Flutter mobile application for premium car rentals with *
 ### Light mode
 
 ![Home Screen](assets/screenshots/home_light.png) ![Favorite Screen](assets/screenshots/favorite_light.png) ![Booking Screen](assets/screenshots/booking_light.png)
+
+![Payment Screen](assets/screenshots/payment.png)
 
 ### Dark mode
 

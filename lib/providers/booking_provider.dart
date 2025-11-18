@@ -1,7 +1,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/entities/booking.dart';
+import '../models/booking.dart';
 
 final bookingsProvider = NotifierProvider<BookingsNotifier, List<Booking>>(
   BookingsNotifier.new,

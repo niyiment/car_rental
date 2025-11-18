@@ -1,10 +1,10 @@
 
-import 'package:car_rental/shared/providers/booking_provider.dart';
+import 'package:car_rental/providers/booking_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart' show WidgetRef, ConsumerWidget;
 import 'package:go_router/go_router.dart';
 
-import '../../../domain/entities/booking.dart';
+import '../../../models/booking.dart';
 
 
 class BookingCard extends ConsumerWidget {

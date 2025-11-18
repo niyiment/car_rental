@@ -1,15 +1,16 @@
 name: car_rental
-description: "A new Flutter project."
+description: "Car rental service"
 publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: ^3.9.2
+  sdk: ^3.10.0
 
 dependencies:
   equatable: ^2.0.7
   flutter:
     sdk: flutter
+  cupertino_icons: ^1.0.8
   flutter_hooks: ^0.21.3+1
   flutter_map: ^8.2.2
   flutter_riverpod: ^3.0.3
@@ -18,11 +19,15 @@ dependencies:
   hooks_riverpod: ^3.0.3
   latlong2: ^0.9.1
   shared_preferences: ^2.5.3
+  flutter_stripe: ^12.1.1
+  http: ^1.6.0
+  intl: ^0.20.2
+  flutter_dotenv: ^6.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   custom_lint: ^0.8.0
   riverpod_lint: ^3.0.3
   build_runner: ^2.7.1
@@ -32,3 +37,4 @@ flutter:
 
   assets:
     - assets/images/
+    - .env

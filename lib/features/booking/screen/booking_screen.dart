@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../shared/providers/booking_provider.dart';
+import '../../../providers/booking_provider.dart';
 import '../widgets/booking_card.dart';
 import '../widgets/stat_card.dart';
 
